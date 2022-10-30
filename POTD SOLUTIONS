@@ -1,0 +1,14 @@
+30 OCTOBER 2022
+Chicks IN A ZOO
+	long long int NoOfChicks(int n){
+	    vector<long long int> v(n);
+	    v[0]=1;
+	   long long int sum=1;
+	    for(int i=1;i<n;i++){
+	        if(i>=6)
+	        sum=sum-v[i-6];
+	        v[i]=2*sum;
+	        sum+=v[i];
+	    }
+	    return sum;
+	}

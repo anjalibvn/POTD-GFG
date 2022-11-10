@@ -244,23 +244,41 @@ class Solution{
 	        ans=min(ans,sum-(2*it));
 	    }
 	    return ans;
-	    
-	    //10 November 2022
-	       int n = size(s);
+	    //10 NOVEMBER 2022
+	    long long jumpingNums(long long X) {
+        if(X <= 9) return X;
         
-        if(n == 1) return true; // if string size 1 then simple return true if symbol is present no need worry about we don't need remove question ask return 
-        //true or false
+        queue<long long> q;
+        // 1 - 9 are jumping numbers we know (so insert them in queue)
+        for(int i = 1; i <= 9; i++)
+            q.push(i);
         
-        string str = "";
-        for(int i=0; i<n; i++) if(isalnum(s[i])) str +=s[i]; // only put number and char not any symbol
-        
-        // converting whole string into uppercase
-        transform(str.begin(), str.end(), str.begin(), ::toupper);
-        
-        int i=0,j=size(str)-1;
-        
-        while(i<j) {
-            if(str[i] != str[j]) return false; // checking where two char are not same then return false
-            i++,j--;
+        long long ans = INT_MIN;
+        while(!q.empty()) {
+            long long curr = q.front();
+            ans = max(curr, ans);
+            q.pop();
+            
+            long long last = curr % 10;     // take the last digit from curr
+            
+            // generate the next jumping number
+            int num1 = curr * 10 + last + 1;
+            int num2 = curr * 10 + last - 1;   
+            
+            // boundary cases 
+            if(last == 0) {
+                // in case of say 10: we will get 101 from num1, and 99 (invalid) from num2, so checking num1 only
+                if(num1 <= X) q.push(num1);
+            } else if(last == 9) {
+                // in case of say 89: we will get 900 (invalid) from num1, and 898 from num2, so checking num2 only
+                if(num2 <= X) q.push(num2);
+            } else {
+                // normal case: check both
+                if(num1 <= X) q.push(num1);
+                if(num2 <= X) q.push(num2);
+            }
         }
-        return true;
+        return ans;     // finally return the answer
+    }
+	    
+	 

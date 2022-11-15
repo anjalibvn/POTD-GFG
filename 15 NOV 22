@@ -1,0 +1,31 @@
+int longestPerfectPiece(int arr[], int N) {
+        // code here
+          int a, b;
+        int i = 0, j = 0, res = 0;
+        while (i < N) {
+            a = arr[i];
+            b = -1;
+            j = i + 1;
+            while(j < N) {
+                if (b == -1 && abs(arr[j] - a) == 1)
+                    b = arr[j++];
+                else if (arr[j] == a || arr[j] == b)
+                    j++;
+                else
+                    break;
+            }
+            res = max(res, j - i);
+            if (j >= N)
+                break;
+            i = j;
+            if (abs(arr[j] - arr[j - 1]) == 1) {
+                i = j - 1;
+                a = arr[j];
+                b = arr[i];
+                while (arr[i] == b)
+                    i--;
+                i++;
+            }
+        }
+        return res;
+    }

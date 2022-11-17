@@ -1,0 +1,25 @@
+	ll countSubarray(int arr[], int n, int k) {
+	    // code here
+	    ll ans = 0;
+	   int i = n-1;
+	   while(i >= 0 && arr[i] <= k)
+	   {
+	       i--;
+	   }
+	   int idx = i;
+	   int ed = i;
+	   
+	   while(ed >= 0)
+	   {
+	       if(arr[ed] > k){
+	           ans += (n - ed);
+	           idx = ed;
+	       }
+	       
+	       else ans += (n-idx);
+	       
+	       ed--;
+	   }
+	   
+	   return ans;
+	}

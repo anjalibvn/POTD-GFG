@@ -1,0 +1,44 @@
+class Solution{
+public:
+    // function to construct tree from string
+    Node *treeFromString(string str){
+        // code here
+        stack<Node*>s;
+        int n=str.length();
+        int j=0;
+        string temp="";
+        while(!(str[j]=='(' || str[j]==')')){
+            temp+=str[j];
+            j++;
+        }
+        Node *p = new Node(stoi(temp));
+        s.push(p);
+        Node *ans=p;
+        for(int i=0;i<n;i++){
+            Node *q;
+            p=s.top();
+            if(str[i]=='('){
+                i++;
+                temp="";
+                while(!(str[i]=='(' || str[i]==')')){
+                    temp+=str[i];
+                    i++;
+                }
+                i--;
+                q = new Node(stoi(temp)); 
+                if(p->left==NULL){
+                    p->left=q;
+                }
+                else{
+                    p->right=q;
+                }
+                s.push(q);
+                continue;
+            }
+            if(str[i]==')'){
+                s.pop();
+            }
+        }
+        return ans;
+    }
+};

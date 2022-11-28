@@ -1,0 +1,27 @@
+vector<int> findSubarray(int a[], int n) {
+	    // code here
+	     unordered_map<int, vector<int>> mp;	    
+	    int sum=0;
+	    for(int i=0;i<n;i++){
+	        vector<int> temp;
+	        int sum=0;
+	        while(a[i]>=0 and i<n){
+	            sum += a[i];
+	            temp.push_back(a[i]);
+	            i++;
+	        }
+	        if(sum>0)
+	            mp[sum]=temp;
+	    }	    
+	    if(mp.size()<1) return {-1};
+
+	    vector<int> res;
+	    int count=INT_MIN;
+	    for(auto it: mp){
+	        if(it.first>count){
+	            res=it.second;
+	            count=it.first;
+	        }
+	    }	        
+	    return res;
+	}

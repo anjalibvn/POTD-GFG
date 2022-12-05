@@ -1,0 +1,51 @@
+class Solution {
+  public:
+    int shotestPath(vector<vector<int>> mat, int n, int m, int k) {
+        // code here
+          vector<vector<int>>dt(n,vector<int>(m,1e9));
+
+        dt[0][0]=mat[0][0];
+
+        priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>>q;
+
+        q.push({0,0,0,0});
+
+        while(!q.empty())
+
+        {
+
+            int d=q.top()[0], s=q.top()[1], i=q.top()[2], j=q.top()[3];
+
+            q.pop();
+
+            if(s>k)continue;
+
+            dt[i][j]=d;
+
+            int dir[]={0,1,0,-1,0};
+
+            for(int k=0;k<4;k++)
+
+            {
+
+                int nr=i+dir[k], nc=j+dir[1+k];
+
+                if(nr>=0 and nr<n and nc>=0 and nc<m and dt[nr][nc]>d+1)
+
+                {
+
+                    dt[nr][nc]=d+1;
+
+                    q.push({d+1,s+mat[nr][nc],nr,nc});
+
+                }
+
+            }
+
+        }
+
+        if(dt[n-1][m-1]>=1e9)return -1;
+
+        return dt[n-1][m-1];
+    }
+};

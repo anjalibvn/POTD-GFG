@@ -1,0 +1,25 @@
+     int maxi=INT_MIN; 
+  int traverse(Node *root)
+  {
+      if(!root)    
+      return INT_MIN;
+     
+      int a=traverse(root->left);
+      int b=traverse(root->right);
+      int temp=max(a,b);
+      if(a==INT_MIN)  
+      a=0;
+      if(b==INT_MIN)
+      b=0;
+      temp=max(temp,a+b+root->data);
+      maxi=max(maxi,temp);
+      return a+b+root->data;
+     
+      
+  }
+    int findLargestSubtreeSum(Node* root)
+    {
+         int a= traverse(root); 
+         return maxi;
+    }
+};

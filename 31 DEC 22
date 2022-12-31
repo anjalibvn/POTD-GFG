@@ -1,0 +1,20 @@
+  int minLaptops(int N, int start[], int end[]) {
+     sort(start,start+N);
+
+        sort(end,end+N);
+
+        int laptopCount=1, i=1, j=0;
+
+        while(i<N && j<N){
+
+            if(start[i]<end[j]) laptopCount++;
+
+            else j++;
+
+            i++;
+
+        }
+
+        return laptopCount;
+    }
+};

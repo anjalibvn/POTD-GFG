@@ -1,0 +1,31 @@
+Given a binary tree, find the largest value in each leveL.
+class Solution {
+  public:
+  vector<int> v;
+  void level(Node*node){
+      queue<Node*> q;
+      q.push(node);
+      while(!q.empty()){
+          int count = q.size();
+          int maxval=0;
+          while(count--){
+              Node*curr=q.front();
+              q.pop();
+              maxval=max(maxval,curr->data);
+              if(curr->left!=NULL){
+                  q.push(curr->left);
+              }
+              if(curr->right!=NULL){
+                  q.push(curr->right);
+              }
+             
+          }
+           v.push_back(maxval);
+      }
+  }
+    vector<int> maximumValue(Node* node) {
+        //code here
+        level(node);
+        return v;
+    }
+};
